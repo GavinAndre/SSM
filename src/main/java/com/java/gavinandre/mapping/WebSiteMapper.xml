@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.java.gavinandre.dao.IWebSiteDao">
+
+    <!--auto generated Code-->
+    <resultMap id="AllColumnMap" type="com.java.gavinandre.pojo.WebSite">
+        <result column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="url" property="url"/>
+        <result column="alexa" property="alexa"/>
+        <result column="country" property="country"/>
+    </resultMap>
+
+    <!--auto generated Code-->
+    <sql id="all_column">
+        id,
+        name,
+        url,
+        alexa,
+        country
+    </sql>
+
+    <!--auto generated Code-->
+    <insert id="insert">
+        INSERT INTO websites
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="pojo.id != null">id,</if>
+            <if test="pojo.name != null">name,</if>
+            <if test="pojo.url != null">url,</if>
+            <if test="pojo.alexa != null">alexa,</if>
+            <if test="pojo.country != null">country,</if>
+        </trim>
+        VALUES
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="pojo.id != null">#{pojo.id},</if>
+            <if test="pojo.name != null">#{pojo.name},</if>
+            <if test="pojo.url != null">#{pojo.url},</if>
+            <if test="pojo.alexa != null">#{pojo.alexa},</if>
+            <if test="pojo.country != null">#{pojo.country},</if>
+        </trim>
+    </insert>
+
+    <!--auto generated Code-->
+    <insert id="insertList">
+        INSERT INTO websites(
+        <include refid="all_column"/>
+        )VALUES
+        <foreach collection="pojos" item="pojo" index="index" separator=",">
+            (
+            #{pojo.id},
+            #{pojo.name},
+            #{pojo.url},
+            #{pojo.alexa},
+            #{pojo.country}
+            )
+        </foreach>
+    </insert>
+
+    <!--auto generated Code-->
+    <update id="update">
+        UPDATE websites
+        <set>
+            <if test="pojo.id != null">id = #{pojo.id},</if>
+            <if test="pojo.name != null">name = #{pojo.name},</if>
+            <if test="pojo.url != null">url = #{pojo.url},</if>
+            <if test="pojo.alexa != null">alexa = #{pojo.alexa},</if>
+            <if test="pojo.country != null">country = #{pojo.country}</if>
+        </set>
+        WHERE id = #{pojo.id}
+    </update>
+
+    <!--auto generated Code-->
+    <select id="select" resultMap="AllColumnMap">
+        SELECT
+        <include refid="all_column"/>
+        FROM websites
+        <where>
+            <if test="pojo.id != null">AND id = #{pojo.id}</if>
+            <if test="pojo.name != null">AND name = #{pojo.name}</if>
+            <if test="pojo.url != null">AND url = #{pojo.url}</if>
+            <if test="pojo.alexa != null">AND alexa = #{pojo.alexa}</if>
+            <if test="pojo.country != null">AND country = #{pojo.country}</if>
+        </where>
+    </select>
+
+    <select id="selectByPrimaryKey" resultMap="AllColumnMap">
+        select
+        <include refid="all_column"/>
+        from websites
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <!--auto generated Code-->
+    <delete id="delete">
+        DELETE FROM websites where id = #{pojo.id}
+    </delete>
+</mapper>
