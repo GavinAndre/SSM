@@ -6,9 +6,10 @@
   </head>
   
   <body>
-    ${user.userName}
-    ${user.age}
-    ${user.password}
-
+    ${webSite.id}
+    ${webSite.name}
+    ${webSite.url}
+    ${webSite.alexa}
+    ${webSite.country}
   </body>
 </html>

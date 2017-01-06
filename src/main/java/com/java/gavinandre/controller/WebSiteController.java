@@ -27,15 +27,15 @@ public class WebSiteController {
     public String webSiteInfo(@RequestParam int id, Model model) {
 //		int userId = Integer.parseInt(request.getParameter("id"));
         WebSite webSite = this.webSiteService.getUserById(id);
-        model.addAttribute("user", webSite);
-        return "userInfo";
+        model.addAttribute("webSite", webSite);
+        return "webSiteInfo";
     }
 
     @RequestMapping(path = "/webSiteInfoPath/{id}")
     public String webSiteInfoPath(@PathVariable int id, Model model) {
         WebSite webSite = this.webSiteService.getUserById(id);
-        model.addAttribute("user", webSite);
-        return "userInfo";
+        model.addAttribute("webSite", webSite);
+        return "webSiteInfo";
     }
 
     @ResponseBody

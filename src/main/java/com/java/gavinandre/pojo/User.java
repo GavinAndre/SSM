@@ -1,13 +1,17 @@
 package com.java.gavinandre.pojo;
 
+import java.util.Date;
+
 public class User {
     private Integer id;
 
-    private String userName;
+    private String username;
 
-    private String password;
+    private Date birthday;
 
-    private Integer age;
+    private String sex;
+
+    private String address;
 
     public Integer getId() {
         return id;
@@ -17,27 +21,35 @@ public class User {
         this.id = id;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName == null ? null : userName.trim();
+    public void setUsername(String username) {
+        this.username = username == null ? null : username.trim();
     }
 
-    public String getPassword() {
-        return password;
+    public Date getBirthday() {
+        return birthday;
     }
 
-    public void setPassword(String password) {
-        this.password = password == null ? null : password.trim();
+    public void setBirthday(Date birthday) {
+        this.birthday = birthday;
     }
 
-    public Integer getAge() {
-        return age;
+    public String getSex() {
+        return sex;
     }
 
-    public void setAge(Integer age) {
-        this.age = age;
+    public void setSex(String sex) {
+        this.sex = sex == null ? null : sex.trim();
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address == null ? null : address.trim();
     }
 }
