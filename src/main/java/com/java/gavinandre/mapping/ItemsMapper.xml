@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.java.gavinandre.dao.ItemsDao">
+
+<!--auto generated Code-->
+    <resultMap id="AllColumnMap" type="com.java.gavinandre.pojo.Items">
+        <result column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="price" property="price"/>
+        <result column="pic" property="pic"/>
+        <result column="createtime" property="createtime"/>
+        <result column="detail" property="detail"/>
+    </resultMap>
+
+<!--auto generated Code-->
+    <sql id="all_column">
+        id,
+        name,
+        price,
+        pic,
+        createtime,
+        detail
+    </sql>
+
+<!--auto generated Code-->
+    <insert id="insert">
+        INSERT INTO items
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="pojo.id != null"> id, </if>
+            <if test="pojo.name != null"> name, </if>
+            <if test="pojo.price != null"> price, </if>
+            <if test="pojo.pic != null"> pic, </if>
+            <if test="pojo.createtime != null"> createtime, </if>
+            <if test="pojo.detail != null"> detail, </if>
+        </trim>
+        VALUES
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="pojo.id != null"> #{pojo.id}, </if>
+            <if test="pojo.name != null"> #{pojo.name}, </if>
+            <if test="pojo.price != null"> #{pojo.price}, </if>
+            <if test="pojo.pic != null"> #{pojo.pic}, </if>
+            <if test="pojo.createtime != null"> #{pojo.createtime}, </if>
+            <if test="pojo.detail != null"> #{pojo.detail}, </if>
+        </trim>
+    </insert>
+
+<!--auto generated Code-->
+    <insert id="insertList">
+        INSERT INTO items(
+        <include refid="all_column"/>
+        )VALUES
+        <foreach collection="pojos" item="pojo" index="index" separator=",">
+            (
+            #{pojo.id},
+            #{pojo.name},
+            #{pojo.price},
+            #{pojo.pic},
+            #{pojo.createtime},
+            #{pojo.detail}
+            )
+        </foreach>
+    </insert>
+
+<!--auto generated Code-->
+    <update id="update">
+        UPDATE items
+        <set>
+            <if test="pojo.id != null"> id = #{pojo.id}, </if>
+            <if test="pojo.name != null"> name = #{pojo.name}, </if>
+            <if test="pojo.price != null"> price = #{pojo.price}, </if>
+            <if test="pojo.pic != null"> pic = #{pojo.pic}, </if>
+            <if test="pojo.createtime != null"> createtime = #{pojo.createtime}, </if>
+            <if test="pojo.detail != null"> detail = #{pojo.detail} </if>
+        </set>
+         WHERE id = #{pojo.id}
+    </update>
+
+<!--auto generated Code-->
+    <select id="select" resultMap="AllColumnMap">
+        SELECT <include refid="all_column"/>
+        FROM items
+        <where>
+            <if test="pojo.id != null"> AND id = #{pojo.id} </if>
+            <if test="pojo.name != null"> AND name = #{pojo.name} </if>
+            <if test="pojo.price != null"> AND price = #{pojo.price} </if>
+            <if test="pojo.pic != null"> AND pic = #{pojo.pic} </if>
+            <if test="pojo.createtime != null"> AND createtime = #{pojo.createtime} </if>
+            <if test="pojo.detail != null"> AND detail = #{pojo.detail} </if>
+        </where>
+    </select>
+
+    <select id="selectByPrimaryKey" resultMap="AllColumnMap">
+        select
+        <include refid="all_column"/>
+        from items
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+
+<!--auto generated Code-->
+    <delete id="delete">
+        DELETE FROM items where id = #{pojo.id}
+    </delete>
+</mapper>

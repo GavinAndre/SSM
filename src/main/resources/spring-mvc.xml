@@ -2,13 +2,16 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
        xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
                         http://www.springframework.org/schema/beans/spring-beans-3.1.xsd  
                         http://www.springframework.org/schema/context  
-                        http://www.springframework.org/schema/context/spring-context-3.1.xsd">
+                        http://www.springframework.org/schema/context/spring-context-3.1.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
     <!-- 自动扫描该包，使SpringMVC认为包下用了@controller注解的类是控制器 -->
     <context:component-scan base-package="com.java.gavinandre.controller"/>
+
+    <mvc:resources location="/js/" mapping="/js/**"/>
 
     <!--mvc的注解驱动器，通过它可以替代下边的处理器映射器和适配器-->
     <!--<mvc:annotation-driven></mvc:annotation-driven>-->
@@ -44,11 +47,11 @@
     <!--class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter">-->
     <bean id="mappingJacksonHttpMessageConverter"
           class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
-        <property name="supportedMediaTypes">
+        <!--<property name="supportedMediaTypes">
             <list>
                 <value>text/html;charset=UTF-8</value>
             </list>
-        </property>
+        </property>-->
     </bean>
 
     <!-- 自定义webBinder -->
@@ -61,7 +64,11 @@
                 <ref bean="customPropertyEditor"/>
             </list>
         </property>-->
+        <property name="validator" ref="validator"/>
     </bean>
+
+    <!--定义统一异常处理器-->
+    <bean class="com.java.gavinandre.exception.CustomExceptionResolver"/>
 
     <!-- 注册属性编辑器 -->
     <bean id="customPropertyEditor" class="com.java.gavinandre.controller.propertyeditor.CustomPropertyEditor"/>
@@ -88,6 +95,30 @@
         <property name="maxUploadSize" value="10485760000"/>
         <!-- 内存中的最大值 -->
         <property name="maxInMemorySize" value="40960"/>
+    </bean>
+
+    <bean id="validator"
+          class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
+        <property name="providerClass" value="org.hibernate.validator.HibernateValidator"/>
+        <!-- 如果不指定则默认使用classpath下的ValidationMessages.properties -->
+        <property name="validationMessageSource" ref="messageSource"/>
+    </bean>
+    <!-- 校验错误信息配置文件 -->
+    <bean id="messageSource"
+          class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+        <property name="basenames">
+            <list>
+                <value>classpath:CustomValidationMessages</value>
+            </list>
+        </property>
+        <property name="useCodeAsDefaultMessage" value="false"/>
+        <!-- 资源文件编码格式 -->
+        <property name="fileEncodings">
+            <props>
+                <prop key="classpath:CustomValidationMessages">UTF-8</prop>
+            </props>
+        </property>
+        <property name="cacheSeconds" value="120"/>
     </bean>
 
 </beans>

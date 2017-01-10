@@ -2,6 +2,7 @@ package com.java.gavinandre.service.impl;
 
 import com.java.gavinandre.dao.ItemsCustomDao;
 import com.java.gavinandre.dao.ItemsDao;
+import com.java.gavinandre.exception.CustomException;
 import com.java.gavinandre.pojo.Items;
 import com.java.gavinandre.pojo.ItemsCustom;
 import com.java.gavinandre.pojo.ItemsQueryVo;
@@ -31,6 +32,12 @@ public class ItemsServiceImpl implements ItemsService {
     @Override
     public ItemsCustom findItemsById(int id) throws Exception {
         Items items = itemsDao.selectByPrimaryKey(id);
+
+        //如果查询的商品信息为空，抛出系统自定义的异常
+        if (items==null)
+        {
+            throw new CustomException("修改商品信息不存在");
+        }
 
         //在这里以后随着需求的变化，需要查询商品的其它相关信息，返回到controller
         //所以这个时候用到扩展类更好，如下
